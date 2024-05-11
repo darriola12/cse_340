@@ -72,11 +72,10 @@ nav ul
 {
   display: flex;
   background-color: black;
-  color: white;  
+
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  list-style: none;
 	height: 40px
 }
 
@@ -85,14 +84,25 @@ nav ul li
 {
   font-size: 20px;
   list-style: none;
-	margin-right: 155px
+	margin-right: 125px;
+  
+}
+nav ul li a
+{
+  text-decoration: none;
+  color: white;
+}
+
+nav ul li:hover
+{
+  transform: scale(1.5);
 }
 
 
 /* DELETE THE LEFT SPACE OF THE LAST LI */
 nav ul li:last-child
 {
-  margin-right: 0px;
+  margin-right: 8px;
 }
 
 /* MAIN */

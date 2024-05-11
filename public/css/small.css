@@ -1,0 +1,81 @@
+@media screen and (max-width: 500px) {
+    body{
+        background-image: none;
+    }
+    #wrapper{
+        margin: 0px;
+    }
+    
+    nav ul li {
+        margin-right:20px ;
+        text-align: center;
+        
+    }
+    nav ul li:last-child 
+    {
+        margin-right: 40px;
+    }
+    nav{
+        margin: 0px;
+    }
+    .background-hero {
+        position: absolute;
+        top: 0;
+        left: 9%;
+        width: 90%;
+        height: auto;
+        z-index: 0;
+    }
+    .container-info {
+        line-height: 10px;
+        height: 220px;
+        font-size: 19px;
+        top: 2%;
+        position: absolute;
+        z-index: 1;
+        color: black;
+        left: 1%;
+        background-color: rgb(240, 247, 247, 0.8);
+    }
+    .container-main{
+
+        display: grid;
+        grid-template-rows: 50% 50%;
+        grid-template-columns: 100%;
+        align-items: center;
+        justify-content: center;
+      
+      
+    }
+    .container-main-second{
+        grid-row: 1/2;
+    }
+    .container-hero {
+        position: relative;
+        height: 200px;
+    }
+    .container-main-first h3, .container-main-second h3{
+        font-size: 25px;
+        text-align: left;
+        padding-left: 4px;
+    }
+    .container-main-second 
+    {
+      display: grid;
+      justify-content: left;
+    }
+    footer 
+    {
+        margin-top: 40px;
+        display: block;
+    }
+    .main h1 
+    {
+        margin-left: 0px;
+        font-size: 24px;
+    }
+    .container-main-second ul li
+    {
+        line-height: 30px;
+    }
+}

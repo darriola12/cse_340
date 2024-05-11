@@ -1,0 +1,42 @@
+@media screen and (min-width: 700px) and (max-width:1000px) {
+
+    nav ul li {
+        font-size: 20px;
+        list-style: none;
+        margin-right: 55px;
+        
+    }
+    .container-info {
+        line-height: 15px;
+        height: 275px;
+        font-size: 25px;
+        top: 2%;
+        position: absolute;
+        z-index: 1;
+        color: black;
+        left: 14%;
+        background-color: rgb(240, 247, 247, 0.8);
+    }
+    .container-hero {
+        position: relative;
+        height: 300px;
+    }
+    .container-main {
+        display: grid;
+        align-items: start;
+        grid-template-columns: 50% 50%;
+        justify-content: center;
+    }
+    .container-main-second h3
+    {
+        height: 35px;
+    }
+    .container-main-second ul li
+    {
+        line-height: 30px;
+    }
+
+
+
+    
+}

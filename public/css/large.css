@@ -1,0 +1,37 @@
+@media  screen and (min-width:1500px) and (max-width:2200px) {
+
+    .background-hero
+    {
+        width: 1000px;
+        height: 420px;
+        
+
+    }
+    .container-info {
+        line-height: 10px;
+        height: 299px;
+        font-size: 35px;
+        top: 10%;
+        position: absolute;
+        z-index: 1;
+        color: black;
+        left: 16%;
+        background-color: rgb(240, 247, 247, 0.8);
+    }
+    .container-main-first h3, .container-main-second h3{
+        font-size: 35px;
+    }
+    .container-main {
+        display: grid;
+        align-items: start;
+        grid-template-columns: 50% 50%;
+        justify-content: center;
+    }
+    .container-main-second h3
+    {
+        height: 35px;
+    }
+
+
+}
+

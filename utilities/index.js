@@ -64,19 +64,35 @@ Util.buildClassificationGrid = async function(data){
  
 
 Util.buildinfoCarGrid = async function(vehicle) {
-  let grid2
+  let grid2 
   if (Object.keys(vehicle).length !== 0) {
-    grid2 = '<div class="container-ca">';
+    grid2 = '<div class="container-car-img">'
     grid2 += '<a href="../../inv/detail/' + vehicle.inv_id +
       '" title="View ' + vehicle.inv_make + ' ' + vehicle.inv_model +
       ' details"><img src="' + vehicle.inv_image +
       '" alt="Image of ' + vehicle.inv_make + ' ' + vehicle.inv_model +
-      ' on CSE Motors" /></a>';
-    grid2 += '</div>';
-  }
-  else
-  {
-    grid2 += '<p class="notice">Sorry, no matching vehicles could be found.</p>'
+      ' on CSE Motors" /></a>'
+    grid2 += '</div>'
+    grid2 += '<div class="container-car-info">' 
+    grid2 += '<h2>' + vehicle.inv_make + ' ' +  vehicle.inv_year + '</h2>'
+    grid2 += '<p>' + "Price:" + ' '  + vehicle.inv_price + '</p>'
+    grid2 += '<p>'+ '<span class = "title-car">'+ "Description:" + '</span>' +  ' '  +  vehicle.inv_description + '</p>'
+    grid2 += '<p>'+ '<span class = "title-car">'+  "Miles:" + '</span>' + ' '  +   vehicle.inv_miles +  '</p>'
+    grid2 += '<p>'+ '<span class = "title-car">'+   "Color:" + '</span>' + ' '  +  vehicle.inv_color + '</p>'
+    
+    grid2 += '</div>'
+
+  } else {
+    grid2 += '<p class="notice">Sorry, no matching vehicles could be found.</p>';
   }
   return grid2;
-}
+};
+
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+

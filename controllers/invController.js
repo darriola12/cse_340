@@ -18,5 +18,27 @@ invCont.buildByClassificationId = async function (req, res, next) {
     grid,
   })
 }
+/* ***************************
+ *  Build inventory by each carñ
+ * ************************** */
+
+invCont.buildDisplayInfoCar = async function(req, res, next) {
+  try {
+    const inventoryId = req.params.inventoryId; // Corregido: Usar inventoryId en lugar de displayinfoCar
+    const vehicleData = await invModel.getInventoryById(inventoryId);
+    console.log(vehicleData)
+    const gridVehicles = await utilities.buildinfoCarGrid(vehicleData);
+    const nav = await utilities.getNav();
+    const classVehicle = vehicleData.classification_name; 
+    res.render("./inventory/vehicle", {
+      title: classVehicle + " vehicle", 
+      nav,
+      grid2: gridVehicles,
+    });
+  } catch (error) {
+    console.error("Error en buildDisplayInfoCar:", error);
+    next(error); 
+  }
+}
 
 module.exports = invCont

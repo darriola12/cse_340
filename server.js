@@ -13,6 +13,7 @@ const expressLayouts = require("express-ejs-layouts")
 const baseController = require("./controllers/baseController")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities/")
+const error = require("./routes/error")
 
 
 /* ***********************
@@ -34,6 +35,7 @@ app.use("/inv", inventoryRoute)
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
+app.use("/", error)
 
 
 
@@ -51,6 +53,8 @@ app.use(async (err, req, res, next) => {
     nav
   })
 })
+
+
 
 /* ***********************
  * Local Server Information

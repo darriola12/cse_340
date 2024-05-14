@@ -1,4 +1,9 @@
-@media  screen and (min-width:1500px) and (max-width:2200px) {
+@media  screen and (min-width:1300px) and (max-width:2200px) {
+    nav ul li {
+        list-style: none;
+        margin-right: 20px;
+        
+    }
 
     .background-hero
     {

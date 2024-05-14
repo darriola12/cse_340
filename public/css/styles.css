@@ -1,3 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Dancing+Script:wght@400..700&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+:root
+{
+  --main-font: "Poppins", sans-serif;
+}
+
+
 /******* Change Box Model ***************/
 *,
 *:before,
@@ -203,6 +212,74 @@ nav ul li:last-child
   font-weight: 500;
   line-height: 55px;
 }
+
+.container-main-car
+{
+  display: grid;
+  grid-template-columns: 60% 40% ;
+  margin: 0 25px;
+  gap: 10px
+}
+.container-car-info h2
+{
+  font-family: var(--main-font);
+  font-size: 32px;
+  font-weight: 800;
+}
+.container-car-info
+{
+  margin: 5px 10px;
+}
+.title-car
+{
+  font-size: 22px;
+  font-family: var(--main-font);
+  font-weight: 500;
+}
+.container-car-info p
+{
+  font-size: 19 px;
+  font-family: var(--main-font);
+  font-weight: 400;
+  margin: 0;
+}
+#inv-display 
+{
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 20px;
+}
+#inv-display  li 
+{
+  position: relative;
+  list-style: none;
+}
+#inv-display  li a
+{
+  text-decoration: none;
+  color: black;
+}
+.namePrice hr
+{
+  display: none;
+}
+
+.img-car
+{
+  width: 200px ;
+  height: 150px;
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

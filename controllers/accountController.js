@@ -59,6 +59,7 @@ async function registerAccount(req, res) {
     account_email,
     hashedPassword
   )
+  console.log(regResult)
    
 
   if (regResult) {

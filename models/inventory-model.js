@@ -41,5 +41,28 @@ async function getInventoryById(inventory_id) {
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryById};
+/* **********************
+ *   Check for existing email
+ * ********************* */
+async function checkExistingEmail(account_email){
+  try {
+    const sql = "SELECT * FROM account WHERE account_email = $1"
+    const email = await pool.query(sql, [account_email])
+    return email.rowCount
+  } catch (error) {
+    return error.message
+  }
+} 
+
+
+async function addClassfication(classification_name){
+  try {
+    const sql = "INSERT INTO classfication (classification_name) VALUES ($1, 'Client') RETURNING *"
+    return await pool.query(sql, [classification_name])
+  } catch (error) {
+    return error.message
+  }
+}
+
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryById, checkExistingEmail, addClassfication};
   

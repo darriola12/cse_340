@@ -1,0 +1,20 @@
+
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<% messages() %>
+
+
+<div id="add-classification-container">
+
+    <form action="/inv/addclassification" method="post">
+        <span>NAME MUST BE ALPHABETIC CHARACTERS ONYL, AND NOT SPACES BETWEEN WORDS</span>
+        <label for="add-classification-type"></label>
+        <input type="text" name="classification_name" id="add-classification-type">
+        <button>sign up</button>
+    </form>
+
+</div>

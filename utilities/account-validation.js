@@ -74,6 +74,17 @@ validate.checkRegData = async (req, res, next) => {
     }
     next()
   }
-  
-  module.exports = validate
+
+
+validate.checkclassification = () => {
+  return [
+    body("classification_name")
+      .trim()
+      .escape()
+      .notEmpty()
+      .withMessage("Please provide a valid clasification Name"), // on error this message is sent.
+  ]
+}
+
+module.exports = validate
   

@@ -7,10 +7,10 @@
 <% messages() %>
 
 
-<div class="add-inventory-container">
-    <form action="/inventory/add-inventory">
+<div class="container-form">
+    <form action="/inv/addinventory" class="form-model" method="post">
         <label for="inv_make">Name</label>
-        <input type="text" name="inv_male" id="inv_make">
+        <input type="text" name="inv_make" id="inv_make">
         <label for="inv_model">Model</label>
         <input type="text" name="inv_model" id="inv_model">
         <label for="inv_year">Year</label>
@@ -28,5 +28,6 @@
         <label for="inv_color">Color</label>
         <input type="text" name="inv_color" id="inv_color">
         <%- classificationList %>
+        <div class="container-button-form "><button id="button-longin">Send</button></div>
     </form>
 </div>

@@ -101,8 +101,33 @@ res.render("inventory/add-inventory", {
   classificationList: selectList, // Cambia selectList por classificationList
   errors: null
 });
- 
 };
+
+invCont.addInventoryController = async function(req, res){
+  const nav = utilities.getNav(); 
+  const {inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id} = req.body
+  const regResult = await invModel.addNewInventory(inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id)
+  if (regResult) {
+    req.flash(
+      "notice",
+      `Congratulations, you add a new inventory`
+    )
+    res.status(201).render("inventory/add-classification", {
+      title: "Add classification",
+      nav,
+      
+    })
+  } else {
+    req.flash("notice", "Sorry, the registration failed.")
+    res.status(501).render("inventory/add-classification", {
+      title: "Add classification",
+      nav,
+    })
+  }
+
+
+};
+
  
 
 module.exports = invCont

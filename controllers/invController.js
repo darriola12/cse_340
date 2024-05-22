@@ -1,6 +1,8 @@
+const { render } = require("ejs")
 const invModel = require("../models/inventory-model")
 const Util = require("../utilities/")
 const utilities = require("../utilities/")
+const expressEjsLayouts = require("express-ejs-layouts")
 
 
 const invCont = {}
@@ -28,7 +30,6 @@ invCont.buildDisplayInfoCar = async function(req, res, next) {
   try {
     const inventoryId = req.params.inventoryId; // Corregido: Usar inventoryId en lugar de displayinfoCar
     const vehicleData = await invModel.getInventoryById(inventoryId);
-    console.log(vehicleData)
     const gridVehicles = await utilities.buildinfoCarGrid(vehicleData);
     const nav = await utilities.getNav();
     const classVehicle = vehicleData.classification_name; 
@@ -56,30 +57,52 @@ invCont.buildInventoryManagement = async function(req, res, next) {
   }
 }
 
+invCont.addclassificationView  = async function(req, res, next) {
+  let nav = await utilities.getNav()
+  res.render("inventory/add-classification", {
+    title: "Add classification",
+    nav,
+    errors:null,
+  })
+}
+
+
 invCont.addClassificationController = async function(req, res){
   
   let  nav = await utilities.getNav();
   const {classification_name} = req.body
-  const regResult = await invModel.addClassfication(classification_name)
+  console.log(classification_name)
+  const regResult = await invModel.addClassification(classification_name)
   if (regResult) {
     req.flash(
       "notice",
-      `Congratulations,  you add a new classificatin called ${classification_name}. `
+      `Congratulations, you add a new classification  called ${classification_name}`
     )
     res.status(201).render("inventory/add-classification", {
       title: "Add classification",
       nav,
     })
-  } else {s
-    req.flash("notice", "Sorry, something failed.")
+  } else {
+    req.flash("notice", "Sorry, the registration failed.")
     res.status(501).render("inventory/add-classification", {
-      title: "Add classification",
+      title: "v",
       nav,
     })
   }
-
       
 }
+
+invCont.addInventoryView = async function(req, res, next) {
+const selectList = await Util.buildClassificationList(); 
+let nav = await utilities.getNav();
+res.render("inventory/add-inventory", {
+  title: "Add an Inventory",
+  nav,
+  classificationList: selectList, // Cambia selectList por classificationList
+  errors: null
+});
+ 
+};
  
 
 module.exports = invCont

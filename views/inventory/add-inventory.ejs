@@ -1,0 +1,32 @@
+
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+<% messages() %>
+
+
+<div class="add-inventory-container">
+    <form action="/inventory/add-inventory">
+        <label for="inv_make">Name</label>
+        <input type="text" name="inv_male" id="inv_make">
+        <label for="inv_model">Model</label>
+        <input type="text" name="inv_model" id="inv_model">
+        <label for="inv_year">Year</label>
+        <input type="text" name="inv_year" id="inv_year">
+        <label for="inv_description">Description</label>
+        <input type="text" name="inv_description" id="inv_description">
+        <label for="inv_image">URL Image</label>
+        <input type="text" name="inv_image" id="inv_image">
+        <label for="inv_thumbnail"> URL thumbnail</label>
+        <input type="text" name="inv_thumbnail" id="inv_thumbnail">
+        <label for="inv_price">Price</label>
+        <input type="text" name="inv_price" id="inv_price">
+        <label for="inv_miles">Miles</label>
+        <input type="text" name="inv_miles" id="inv_miles">
+        <label for="inv_color">Color</label>
+        <input type="text" name="inv_color" id="inv_color">
+        <%- classificationList %>
+    </form>
+</div>

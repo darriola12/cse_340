@@ -55,14 +55,16 @@ async function checkExistingEmail(account_email){
 } 
 
 
-async function addClassfication(classification_name){
+async function addClassification(classification_name){
   try {
-    const sql = "INSERT INTO classfication (classification_name) VALUES ($1, 'Client') RETURNING *"
+    const sql = "INSERT INTO classification (classification_name) VALUES ($1) RETURNING *"
     return await pool.query(sql, [classification_name])
   } catch (error) {
     return error.message
   }
 }
 
-module.exports = {getClassifications, getInventoryByClassificationId, getInventoryById, checkExistingEmail, addClassfication};
+// async function addNewInventory()
+
+module.exports = {getClassifications, getInventoryByClassificationId, getInventoryById, addClassification};
   

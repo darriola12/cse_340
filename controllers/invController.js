@@ -78,15 +78,17 @@ invCont.addClassificationController = async function(req, res){
       "notice",
       `Congratulations, you add a new classification  called ${classification_name}`
     )
-    res.status(201).render("inventory/add-classification", {
-      title: "Add classification",
+    res.status(201).render("inventory/management", {
+      title: "Inventory Management",
       nav,
+      errors:null
     })
   } else {
-    req.flash("notice", "Sorry, the registration failed.")
+    req.flash("notice", "Sorry, there was something wrong")
     res.status(501).render("inventory/add-classification", {
-      title: "v",
+      title: "Add Classification",
       nav,
+      errors:null, 
     })
   }
       
@@ -112,9 +114,10 @@ invCont.addInventoryController = async function(req, res){
       "notice",
       `Congratulations, you add a new inventory`
     )
-    res.status(201).render("inventory/add-classification", {
-      title: "Add classification",
+    res.status(201).render("inventory/management", {
+      title: "Inventory Management",
       nav,
+      errors:null,
       
     })
   } else {
@@ -122,6 +125,7 @@ invCont.addInventoryController = async function(req, res){
     res.status(501).render("inventory/add-classification", {
       title: "Add classification",
       nav,
+      errors:null,
     })
   }
 

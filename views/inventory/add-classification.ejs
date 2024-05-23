@@ -6,14 +6,22 @@
     } %>
 
 <% messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+<% } %>
 
 
-<div id="container-form">
+
+<div class="container-form">
 
     <form action="/inv/addclassification" method="post" class="form-model">
         <span>NAME MUST BE ALPHABETIC CHARACTERS ONYL, AND NOT SPACES BETWEEN WORDS</span>
-        <label for="add-classification-type"></label>
-        <input type="text" name="classification_name" id="add-classification-type">
+        <label for="add-classification-type">classification name</label>
+        <input type="text" name="classification_name" id="add-classification-type" required>
         <div class="container-button-form "><button id="button-longin">Add Classification</button></div>
        
     </form>

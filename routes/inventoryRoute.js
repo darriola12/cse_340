@@ -10,9 +10,9 @@ router.get("/type/:classificationId", invController.buildByClassificationId);
 router.get("/detail/:inventoryId", invController.buildDisplayInfoCar);
 router.get("/", invController.buildInventoryManagement);
 router.get("/addclassification", utilities.handleErrors(invController.addclassificationView));
-router.post("/addclassification", regValidate.checkclassification(), utilities.handleErrors(invController.addClassificationController));
+router.post("/addclassification", regValidate.regclassification(),  regValidate.checkclassification, utilities.handleErrors(invController.addClassificationController));
 router.get("/addinventory", utilities.handleErrors(invController.addInventoryView));
-router.post("/addinventory", utilities.handleErrors(invController.addInventoryController)); 
+router.post("/addinventory",regValidate.addinventory(), regValidate.checkinventory , utilities.handleErrors(invController.addInventoryController)); 
 
 
 

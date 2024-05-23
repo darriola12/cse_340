@@ -286,11 +286,19 @@ nav ul li:hover
   display: block;
 }
 
-.form-model label, .form-model input, .form-model span{
+.form-model label,.form-model span{
 	display: block; 
 	margin: 8px; 
 	color: white;
 }
+.form-model input
+{
+  display: block; 
+	margin: 8px; 
+	color: black;
+
+}
+
 .form-model
 {
 	background-color: black; 

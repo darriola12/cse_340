@@ -2,6 +2,7 @@ const utilities = require("../utilities/")
 const accountModel = require("../models/account-model")
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const { emit } = require("nodemon")
 require("dotenv").config()
 
 
@@ -62,9 +63,6 @@ async function registerAccount(req, res) {
     account_email,
     hashedPassword
   )
-  console.log(regResult)
-   
-
   if (regResult) {
     req.flash(
       "notice",
@@ -88,8 +86,8 @@ async function registerAccount(req, res) {
  * ************************************ */
 async function accountLogin(req, res) {
   let nav = await utilities.getNav()
-  const { account_email, account_password } = req.body
-  const accountData = await accountModel.getAccountByEmail(account_email)
+  const { email, password } = req.body
+  const accountData = await accountModel.getAccountByEmail(email)
   console.log(accountData)
   if (!accountData) {
    req.flash("notice", "Please check your credentials and try again.")
@@ -102,7 +100,7 @@ async function accountLogin(req, res) {
   return
   }
   try {
-   if (await bcrypt.compare(account_password, accountData.account_password)) {
+   if (await bcrypt.compare(password, accountData.account_password)) {
    delete accountData.account_password
    const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 })
    if(process.env.NODE_ENV === 'development') {
@@ -110,7 +108,7 @@ async function accountLogin(req, res) {
      } else {
        res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000 })
      }
-   return res.redirect("/account/")
+   return res.redirect("/account/account")
    }
   } catch (error) {
    return new Error('Access Forbidden')

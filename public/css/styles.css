@@ -2,8 +2,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
 
 * {
-  margin: 0;
-  padding: 0;
+  
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
@@ -37,6 +36,11 @@
 
 }
 
+main h1{
+
+  margin-left: 25px;
+
+}
 /* HEADER */
 
 header
@@ -343,7 +347,17 @@ nav ul li:hover
   margin-top: 20px; 
   margin-bottom: 20px;
 }
-
+.button-longin
+{
+  font-family: var(--main-font);
+  font-weight: 600;
+  font-size: 22px;
+  width: 200px;
+  height: 30px;
+}
+#classificationList{
+  margin-left: 8px;
+}
 
 
 

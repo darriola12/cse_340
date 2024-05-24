@@ -1,15 +1,24 @@
 @media screen and (max-width: 500px) {
+
+    /* *{
+        margin: 0 ;
+        padding: 0;
+    } */
     body{
         background-image: none;
+        
     }
     #wrapper{
         margin: 0px;
     }
     
     nav ul li {
-        margin-right:10px ;
         text-align: center;
         
+    }
+    nav ul 
+    {
+        gap: 10px;
     }
     nav ul li:last-child 
     {

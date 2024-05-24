@@ -6,10 +6,18 @@
 
 <%- messages() %>
 
+<% if (errors) { %>
+    <ul class="notice">
+   <% errors.array().forEach(error => { %>
+     <li><%= error.msg %></li>
+  <%  }) %>
+   </ul>
+  <% } %>
+
 
 
 <div class="container-form">
-    <form class="form-model" action="/account/login" method="post" autocomplete="on">
+    <form class="form-model" id="loginForm" action="/account/login" method="post" autocomplete="on">
             <h3>login your account</h3>
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" placeholder="example@gmail.com" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>

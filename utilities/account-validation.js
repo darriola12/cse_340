@@ -196,5 +196,45 @@ validate.checkinventory= async (req, res, next) => {
   next()
 }
 
+
+
+validate.regLoginEmail = () =>{
+  return[
+    body("email")
+      .trim()
+      .isEmail()
+      .normalizeEmail() // refer to validator.js docs
+      .withMessage("A valid email is required.")
+      .custom(async (email) => {
+        const emailExists = await accountModel.checkExistingEmail(email)
+        if (!emailExists){
+          throw new Error("There is not email related with this account, please sign in")
+        }
+      }),
+  ]
+
+}
+validate.checkLoginEmail= async (req, res, next) => {
+  const {email} = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/login", {
+      errors,
+      title: "Login",
+      nav,
+      email,
+    })
+    return
+  }
+  next()
+}
+
+
+
+
+
+
 module.exports = validate
   

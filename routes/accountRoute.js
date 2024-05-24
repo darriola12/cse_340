@@ -13,7 +13,7 @@ router.post(
     regValidate.checkRegData,
     utilities.handleErrors(accountController.registerAccount)
 )
-router.post("/login", utilities.handleErrors(accountController.accountLogin))
+router.post("/login",regValidate.regLoginEmail(),regValidate.checkLoginEmail, utilities.handleErrors(accountController.accountLogin))
 router.get("/account/", utilities.checkLogin,  accountController.accountView)
 
 

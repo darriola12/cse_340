@@ -47,11 +47,11 @@ invCont.buildDisplayInfoCar = async function(req, res, next) {
 invCont.buildInventoryManagement = async function(req, res, next) {
   try {
       const nav = await utilities.getNav();
-      const selectlist = utilities.buildClassificationList();
+      const selectList = await Util.buildClassificationList(); 
       res.render('../views/inventory/management', {
           title: 'Inventory Management',
           nav,
-          classificationList: selectlist,
+          classificationList: selectList,
       });
   } catch(error) {
       console.error("Error en buildInventoryManagement:", error);

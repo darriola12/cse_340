@@ -13,6 +13,7 @@ router.get("/addclassification", utilities.handleErrors(invController.addclassif
 router.post("/addclassification", regValidate.regclassification(),  regValidate.checkclassification, utilities.handleErrors(invController.addClassificationController));
 router.get("/addinventory", utilities.handleErrors(invController.addInventoryView));
 router.post("/addinventory",regValidate.addinventory(), regValidate.checkinventory , utilities.handleErrors(invController.addInventoryController)); 
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 
 

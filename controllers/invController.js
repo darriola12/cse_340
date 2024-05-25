@@ -47,9 +47,11 @@ invCont.buildDisplayInfoCar = async function(req, res, next) {
 invCont.buildInventoryManagement = async function(req, res, next) {
   try {
       const nav = await utilities.getNav();
+      const selectlist = utilities.buildClassificationList();
       res.render('../views/inventory/management', {
           title: 'Inventory Management',
           nav,
+          classificationList: selectlist,
       });
   } catch(error) {
       console.error("Error en buildInventoryManagement:", error);
@@ -68,7 +70,6 @@ invCont.addclassificationView  = async function(req, res, next) {
 
 
 invCont.addClassificationController = async function(req, res){
-  
   let  nav = await utilities.getNav();
   const {classification_name} = req.body
   console.log(classification_name)
@@ -131,6 +132,20 @@ invCont.addInventoryController = async function(req, res){
 
 
 };
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id)
+  const invData = await invModel.getInventoryByClassificationId(classification_id)
+  if (invData[0].inv_id) {
+    return res.json(invData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
+
+
 
  
 

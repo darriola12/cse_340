@@ -135,6 +135,7 @@ Util.checkJWTToken = (req, res, next) => {
 }
 
 
+
 /* ****************************************
  *  Check Login
  * ************************************ */
@@ -145,7 +146,20 @@ Util.checkLogin = (req, res, next) => {
     req.flash("notice", "Please log in.")
     return res.redirect("/account/login")
   }
- }
+}
+
+Util.logout = (req, res, next) => {
+  if (res.locals.loggedin) {
+    // Borra la cookie JWT
+    res.clearCookie("jwt");
+    
+    // Redirige al usuario a la página de inicio de sesión
+    res.redirect("/account/login");
+    
+    // Envía un mensaje al usuario para informar que la sesión se ha cerrado exitosamente
+    req.flash("success", "Session successfully closed.");
+  }
+};
 
 
 module.exports = Util

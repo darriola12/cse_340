@@ -13,8 +13,10 @@ require("dotenv").config()
 *  Deliver login view
 * *************************************** */
 async function buildLogin(req, res, next) {
+    const loggedin = res.locals.loggedin;
     let nav = await utilities.getNav()
     res.render("account/login", {
+      loggedin,
       title: "Login",
       nav,
       errors: null,
@@ -28,8 +30,10 @@ async function buildLogin(req, res, next) {
 *  Deliver registration view
 * *************************************** */
 async function buildRegister(req, res, next) {
+  const loggedin = res.locals.loggedin;
   let nav = await utilities.getNav()
   res.render("account/register", {
+    loggedin, 
     title: "Register",
     nav,
     errors:null,
@@ -41,6 +45,7 @@ async function buildRegister(req, res, next) {
 *  Process Registration
 * *************************************** */
 async function registerAccount(req, res) {
+  const loggedin = res.locals.loggedin;
   let nav = await utilities.getNav()
   const { account_firstname, account_lastname, account_email, account_password } = req.body
 
@@ -51,6 +56,7 @@ async function registerAccount(req, res) {
   } catch (error) {
     req.flash("notice", 'Sorry, there was an error processing the registration.')
     res.status(500).render("account/register", {
+      loggedin,
       title: "Registration",
       nav,
       errors: null,
@@ -69,6 +75,7 @@ async function registerAccount(req, res) {
       `Congratulations, you\'re registered ${account_firstname}. Please log in.`
     )
     res.status(201).render("account/login", {
+      loggedin,
       title: "Login",
       nav,
       errors:null
@@ -76,6 +83,7 @@ async function registerAccount(req, res) {
   } else {
     req.flash("notice", "Sorry, the registration failed.")
     res.status(501).render("account/register", {
+      loggedin,
       title: "Registration",
       nav,
     })
@@ -85,6 +93,7 @@ async function registerAccount(req, res) {
  *  Process login request
  * ************************************ */
 async function accountLogin(req, res) {
+  const loggedin = res.locals.loggedin;
   let nav = await utilities.getNav()
   const { email, password } = req.body
   const accountData = await accountModel.getAccountByEmail(email)
@@ -92,6 +101,7 @@ async function accountLogin(req, res) {
   if (!accountData) {
    req.flash("notice", "Please check your credentials and try again.")
    res.status(400).render("account/login", {
+    loggedin,
     title: "Login",
     nav,
     errors: null,
@@ -115,15 +125,25 @@ async function accountLogin(req, res) {
   }
 }
 
-async function accountView(req, res, next) {
-  let nav = await utilities.getNav()
-  res.render("account/account", {
-    title: "My Account",
-    nav,
-    errors:null,
-  })
-}
 
+
+
+async function accountView(req, res, next) {
+  try {
+    // Obtener el estado de inicio de sesión del cliente y establecer las variables en consecuencia
+    const loggedin = res.locals.loggedin;
+    const nav = await utilities.getNav();
+    res.render("account/account", {
+      loggedin,
+      title: "My Account",
+      nav,
+      errors: null,
+    });
+  } catch (error) {
+    console.error("Error rendering account view:", error);
+    return res.status(500).send("Internal Server Error");
+  }
+}
 
 
 

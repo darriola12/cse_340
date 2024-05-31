@@ -1,4 +1,5 @@
 const invModel = require("../models/inventory-model")
+const accountModel = require("../models/account-model")
 const Util = {}
 const jwt = require("jsonwebtoken")
 require("dotenv").config()
@@ -109,6 +110,24 @@ Util.buildClassificationList = async function (classification_id = null) {
   return classificationList
 }
 
+// Util.buildUpdate = async function(account_email) {
+//   try {
+//     let data = await getAccountByEmail(account_email); 
+//     let updateForm = '<form class="updateForm" method="post" action="account/update">';
+//     updateForm += '<label id="updateName">Account First Name</label>'; 
+//     updateForm += '<input name="account_firstname" value="' + data.account_firstname + '">';
+//     updateForm += '<label id="updateLastName">Account Last Name</label>';
+//     updateForm += '<input name="account_lastname" value="' + data.account_lastname + '">';
+//     updateForm += '<label id="updateEmail">Email</label>'; 
+//     updateForm += '<input name="account_email" value="' + data.account_email + '">';
+//     updateForm += '<button type="submit">Update</button>';
+//     updateForm += '</form>';
+//     return updateForm;
+//   } catch (error) {
+//     return "Error: " + error.message; // Handle error in case of no matching email
+//   }
+// };
+
 
 
 /* ****************************************
@@ -136,6 +155,8 @@ Util.checkJWTToken = (req, res, next) => {
 
 
 
+
+
 /* ****************************************
  *  Check Login
  * ************************************ */
@@ -150,17 +171,41 @@ Util.checkLogin = (req, res, next) => {
 
 Util.logout = (req, res, next) => {
   if (res.locals.loggedin) {
-    // Borra la cookie JWT
     res.clearCookie("jwt");
-    
-    // Redirige al usuario a la página de inicio de sesión
     res.redirect("/account/login");
-    
-    // Envía un mensaje al usuario para informar que la sesión se ha cerrado exitosamente
     req.flash("success", "Session successfully closed.");
   }
 };
 
+
+Util.checkAcess = (req, res, next) => {
+  try {
+    // Extract JWT token from request headers, cookies, or wherever it's stored
+    const token = req.cookies.jwt; // Assuming JWT is stored in cookies
+
+    // Check if token exists
+    if (!token) {
+      req.flash("error", "Unauthorized access. Please log in.");
+      return res.redirect("/account/login");
+    }
+
+    // Verify JWT token
+    const decodedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+
+    // Check account type
+    if (decodedToken.account_type !== 'Employee' && decodedToken.account_type !== 'Admin') {
+      req.flash("error", "Unauthorized access. You do not have permission to perform this action.");
+      return res.redirect("/account/login");
+    }
+
+    // Allow access if account type is Employee or Admin
+    next();
+  } catch (error) {
+    console.error(error);
+    req.flash("error", "Unauthorized access. Please log in.");
+    return res.redirect("/account/login");
+  }
+};
 
 module.exports = Util
 

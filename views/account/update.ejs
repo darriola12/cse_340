@@ -1,0 +1,35 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+      res.redirect('/')
+    } %>
+
+<%- messages() %>
+<% if (errors) { %>
+  <ul class="notice">
+ <% errors.array().forEach(error => { %>
+   <li><%= error.msg %></li>
+<%  }) %>
+ </ul>
+<% } %>
+
+
+<form action="/account/update/<%- locals.accountData.account_id %>" method="post" class="form-model">
+
+  <h2 style="color: white;">Account Update Form</h2>
+  <label for="input-line">First Name</label>
+  <input type="text" name="account_firstname" id="input-line" value = "<%- formData?.account_firstname || locals.accountData.account_firstname %>">
+  <label for="input-line">Last Name</label>
+  <input type="text" name="account_lastname" id="input-line" value = "<%- formData?.account_lastname || locals.accountData.account_lastname%>">
+  <label for="input-line">Email</label>
+  <input type="text" name="account_email" id="input-line" value = "<%- formData?.account_email || locals.accountData.account_email %>">
+  <label for="input-line"></label>
+  <input type="hidden" name="account_id" id="input-line" value = "<%- locals.accountData.account_id%>">
+
+  <button type="submit" class="button-longin"> Update</button>
+
+
+
+
+</form>
+

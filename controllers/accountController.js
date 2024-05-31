@@ -97,6 +97,8 @@ async function accountLogin(req, res) {
   let nav = await utilities.getNav()
   const { email, password } = req.body
   const accountData = await accountModel.getAccountByEmail(email)
+  const name = accountData.account_firstname
+  console.log(name)
   console.log(accountData)
   if (!accountData) {
    req.flash("notice", "Please check your credentials and try again.")
@@ -106,6 +108,7 @@ async function accountLogin(req, res) {
     nav,
     errors: null,
     account_email,
+    name, 
    })
   return
   }
@@ -135,7 +138,7 @@ async function accountView(req, res, next) {
     const nav = await utilities.getNav();
     res.render("account/account", {
       loggedin,
-      title: "My Account",
+      title:  `Welcome ${res.locals.accountData.account_firstname} `,
       nav,
       errors: null,
     });
@@ -147,6 +150,22 @@ async function accountView(req, res, next) {
 
 
 
+async function accountUpdate(req, res, next) {
+  try {
+    const loggedin = res.locals.loggedin;
+    const nav = await utilities.getNav(); 
+    res.render("account/update", {
+      loggedin,
+      title: "My Account",
+      nav,
+      errors: null,
+      formData:null
+    });
+  } catch (error) {
+    next(error); // Pasa el error al siguiente middleware para manejarlo
+  }
+}
 
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, accountView}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, accountView, accountUpdate}

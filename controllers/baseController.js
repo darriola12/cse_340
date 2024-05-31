@@ -7,7 +7,6 @@ baseController.buildHome = async function(req, res){
   res.render("index", {
     title: "Home",
     nav: nav,
-    header: "header",
     loggedin: loggedin
   });
 };

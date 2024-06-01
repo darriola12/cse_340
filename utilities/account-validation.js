@@ -271,13 +271,7 @@ validate.regupdateForm = () =>{
       .trim()
       .isEmail()
       .normalizeEmail() // refer to validator.js docs
-      .withMessage("A valid email is required.")
-      .custom(async (email) => {
-        const emailExists = await accountModel.checkExistingEmail(email)
-        if (emailExists){
-          throw new Error("There is email related with this account, please sign in")
-        }
-      }),
+      .withMessage("A valid email is required."),
   ]
 }
 

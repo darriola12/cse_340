@@ -93,17 +93,14 @@ async function registerAccount(req, res) {
  *  Process login request
  * ************************************ */
 async function accountLogin(req, res) {
-  const loggedin = res.locals.loggedin;
+
   let nav = await utilities.getNav()
   const { email, password } = req.body
   const accountData = await accountModel.getAccountByEmail(email)
   const name = accountData.account_firstname
-  console.log(name)
-  console.log(accountData)
   if (!accountData) {
    req.flash("notice", "Please check your credentials and try again.")
    res.status(400).render("account/login", {
-    loggedin,
     title: "Login",
     nav,
     errors: null,
@@ -163,9 +160,56 @@ async function accountUpdate(req, res, next) {
     });
   } catch (error) {
     next(error); // Pasa el error al siguiente middleware para manejarlo
+}
+}
+
+
+async function accountUpdatePost(req, res, next){
+
+  let nav = await utilities.getNav()
+  const {account_firstname,  account_lastname, account_email, account_id} = req.body
+  const updateResult = await accountModel.updateAccountInfo(account_firstname, account_lastname, account_email, account_id)
+  if(updateResult){
+    req.flash("notice", "You already update your information")
+    res.redirect("/account/account")
   }
+  else{
+    req.flash("notice", "Sorry, we could not update your info")
+    res.redirect("/account/account")
+  }
+
+}
+async function accountPasswordPost(req, res, next){
+
+  let nav = await utilities.getNav()
+  const {account_password, account_id} = req.body
+  let hashedPassword
+  try {
+    // regular password and cost (salt is generated automatically)
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    req.flash("notice", 'Sorry, there was an error processing the registration.')
+    res.status(500).render("account/register", {
+      loggedin,
+      title: "Registration",
+      nav,
+      errors: null,
+    })
+  }
+  const updateResult = await accountModel.updateAccountPassword(hashedPassword, account_id)
+  
+  if(updateResult){
+    req.flash("notice", "You already update your information")
+    res.redirect("/account/account")
+  }
+  else{
+    req.flash("notice", "Sorry, we could not update your info")
+    res.redirect("/account/account")
+  }
+
 }
 
 
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, accountView, accountUpdate}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, accountView, accountUpdate, accountUpdatePost, accountPasswordPost}

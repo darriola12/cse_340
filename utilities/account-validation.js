@@ -254,6 +254,57 @@ validate.checkLoginEmail= async (req, res, next) => {
   next()
 }
 
+validate.regupdateForm = () =>{
+
+  return[
+    body("account_firstname")
+     .trim()
+     .escape()
+     .notEmpty()
+     .withMessage("Please provide your first name"),
+    body("account_lastname")
+     .trim()
+     .escape()
+     .notEmpty()
+     .withMessage("Please provide your last name"),
+    body("account_email")
+      .trim()
+      .isEmail()
+      .normalizeEmail() // refer to validator.js docs
+      .withMessage("A valid email is required.")
+      .custom(async (email) => {
+        const emailExists = await accountModel.checkExistingEmail(email)
+        if (emailExists){
+          throw new Error("There is email related with this account, please sign in")
+        }
+      }),
+  ]
+}
+
+validate.checkUpdateForm= async (req, res, next) => {
+  const {account_firstname, account_lastname, account_email} = req.body
+  let errors = []
+  errors = validationResult(req)
+  if (!errors.isEmpty()) {
+    let nav = await utilities.getNav()
+    res.render("account/update", {
+      errors,
+      title: "Login",
+      nav,
+      account_firstname, 
+      account_lastname, 
+      account_email,
+    })
+    return
+  }
+  next()
+}
+
+
+
+
+
+
 
 
 

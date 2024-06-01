@@ -17,6 +17,8 @@ router.post("/login",regValidate.regLoginEmail(),regValidate.checkLoginEmail, ut
 router.get("/account/", utilities.checkLogin,  accountController.accountView)
 router.get("/logout", utilities.logout )
 router.get("/update", utilities.handleErrors(accountController.accountUpdate))
+router.post("/update", regValidate.regupdateForm(), regValidate.checkUpdateForm, utilities.handleErrors(accountController.accountUpdatePost))
+router.post("/updatepassword", utilities.handleErrors(accountController.accountPasswordPost))
 
 
 

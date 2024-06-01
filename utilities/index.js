@@ -194,6 +194,7 @@ Util.checkAcess = (req, res, next) => {
 
     // Check account type
     if (decodedToken.account_type !== 'Employee' && decodedToken.account_type !== 'Admin') {
+      res.clearCookie("jwt");
       req.flash("error", "Unauthorized access. You do not have permission to perform this action.");
       return res.redirect("/account/login");
     }
